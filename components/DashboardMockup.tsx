@@ -85,13 +85,14 @@ export const DashboardMockup: React.FC = () => {
                     <rect width="100%" height="100%" filter="url(#noiseFilter)" opacity="0.3" />
                     
                     {/* Animated Heatmap Blobs - Changing colors AND POSITIONS based on tab to visually simulate distinct images */}
-                    <AnimatePresence mode="wait">
+                    {/* Removed mode="wait" to allow cross-fading for a smoother transition */}
+                    <AnimatePresence>
                          <motion.g 
                              key={activeTab}
-                             initial={{ opacity: 0, scale: 0.95 }}
+                             initial={{ opacity: 0, scale: 0.9 }}
                              animate={{ opacity: 1, scale: 1 }}
-                             exit={{ opacity: 0, scale: 1.05 }}
-                             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                             exit={{ opacity: 0, scale: 1.1 }}
+                             transition={{ duration: 1.0, ease: "easeInOut" }}
                          >
                             {activeTab === 0 && ( // Hazard (Multi) - Brand Green
                                 <>
@@ -215,10 +216,10 @@ export const DashboardMockup: React.FC = () => {
                 <AnimatePresence mode="wait">
                     <motion.div 
                         key={activeTab}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 10 }}
-                        transition={{ duration: 0.5, ease: "easeOut" }}
+                        initial={{ opacity: 0, y: 15, filter: "blur(5px)" }}
+                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, y: -15, filter: "blur(5px)" }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
                         className="flex flex-col gap-4"
                     >
                         {/* Metric 1 */}
@@ -272,9 +273,19 @@ export const DashboardMockup: React.FC = () => {
                     <div>
                         <div className="flex justify-between text-xs mb-2">
                             <span className="text-zinc-700 dark:text-zinc-300 font-medium">Current Severity</span>
-                            <span className="font-bold" style={{ color: currentTabInfo.color }}>
-                                {activeTab === 0 ? 'High' : activeTab === 1 ? 'Extreme' : 'Moderate'}
-                            </span>
+                            <AnimatePresence mode="wait">
+                                <motion.span 
+                                    key={activeTab}
+                                    initial={{ opacity: 0, y: 5 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -5 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="font-bold" 
+                                    style={{ color: currentTabInfo.color }}
+                                >
+                                    {activeTab === 0 ? 'High' : activeTab === 1 ? 'Extreme' : 'Moderate'}
+                                </motion.span>
+                            </AnimatePresence>
                         </div>
                         <div className="h-2 w-full bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
                             <motion.div 

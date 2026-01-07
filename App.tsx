@@ -2,6 +2,7 @@ import React from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { ProblemSolution } from './components/ProblemSolution/ProblemSolution';
+import { DataEngine } from './components/DataEngine/DataEngine';
 import { TrustedBy } from './components/TrustedBy';
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
       <Navbar />
       <Hero />
       <ProblemSolution />
+      <DataEngine />
       <TrustedBy />
     </main>
   );
